@@ -1,0 +1,32 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Lead {
+  id             Int          @id @default(autoincrement())
+  lead_id        String     
+  lead_status    String
+  first_name     String
+  last_name      String
+  email          String
+  phone          String
+  address        String
+  date_of_birth  String
+  campaign       Campaign     @relation(fields: [campaign_id], references: [id])
+  campaign_id    Int
+}
+
+model Campaign {
+  id             Int      @id @default(autoincrement())
+  name           String
+  created_at     DateTime @default(now()) @map(name: "created_at")
+  leads          Lead[]
+}

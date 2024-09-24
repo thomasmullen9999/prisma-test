@@ -25,3 +25,8 @@ body {
     text-wrap: balance;
   }
 }
+
+tr, th, td, table {
+  border: 1px solid black;
+  padding: 10px;
+}
